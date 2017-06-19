@@ -223,9 +223,9 @@ Salir - salir
 	def titilar():
 		print Fore.RED + Style.BRIGHT + "RoDI/parpadear>", Fore.BLUE + Style.BRIGHT + "El Led esta parpadeando"
 		for i in range(10):
-			robot.light(1)
+			robot.led(1)
 			sleep(0.5)
-			robot.light(0)
+			robot.led(1)
 			sleep(0.5)
 		print Fore.RED + Style.BRIGHT + "RoDI/parpadear>", Fore.BLUE + Style.BRIGHT + "El Led dejo de parpadear"
 
