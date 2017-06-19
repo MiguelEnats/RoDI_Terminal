@@ -1,16 +1,32 @@
-'''
-Los colores disponibles para las constantes Back y Fore son los siguientes: BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE.
-Los estilos son DIM, NORMAL, BRIGHT
-'''
 import os
-os.system('clear')
+
 import rodi
+
 from time import sleep
+
 from colorama import init, Fore, Style
+
 init(autoreset=True)
+
 robot = rodi.RoDI()
+
+os.system('clear')
+
+def wheel(wheel_pos):
+
+    wheel_pos = 255 - wheel_pos
+    if wheel_pos < 85:
+        return (255 - wheel_pos * 3, 0, wheel_pos * 3)
+    if wheel_pos < 170:
+        wheel_pos -= 85
+        return (0, wheel_pos * 3, 255 - wheel_pos * 3)
+    wheel_pos -= 170
+    return (wheel_pos * 3, 255 - wheel_pos * 3, 0)
+
 class action():
+
 	accion=''
+
 	def comienzo():
 
 		print "---------Este es un Test de RoDI, elije la accion que desea realizar.---------"
@@ -24,7 +40,7 @@ class action():
 6-Autonomo. Recorrer sin chocar. Por 1 min. (auto)
 7-Saber si hay luz, o esta oscuro alrededor del RoDI. (luz)
 8-Producir un sonido. (sonido)
-9-Sonar un musica predeterminada (Star War). (musica)
+9-Sonar un musica predeterminada (Star Wars). (musica)
 10-Encender Led. (encender)
 11-Apagar Led. (apagar)
 12-Encender Led de forma aleatoria. (aleatorio)
@@ -49,6 +65,7 @@ Salir - salir
 ------Accion (12). El Led se encendera y apagara cada medio segundo.'''
 
 	def adelante():
+
 		while True:
 			tiempo = input(Fore.RED + Style.BRIGHT + 'RoDI/adelante>')
 			if tiempo < 0:
@@ -63,6 +80,7 @@ Salir - salir
 				break
 	
 	def atras():
+
 		while True:
 			tiempo = input(Fore.RED + Style.BRIGHT + 'RoDI/atras>')
 			if tiempo < 0:
@@ -77,6 +95,7 @@ Salir - salir
 				break
 
 	def izquierda():
+
 		while True:
 			tiempo = input(Fore.RED + Style.BRIGHT + 'RoDI/izquierda>')
 			if tiempo < 0:
@@ -91,6 +110,7 @@ Salir - salir
 				break
 
 	def derecha():
+
 		while True:
 			tiempo = input(Fore.RED + Style.BRIGHT + 'RoDI/derecha>')
 			if tiempo < 0:
@@ -104,55 +124,113 @@ Salir - salir
 			else:
 				break
 	def mirar():
+
 		dis = robot.see()
 		print Fore.RED + Style.BRIGHT + "RoDI/medir>", Fore.BLUE + Style.BRIGHT + "Veo un objeto a %d cm" %dis 
 
 	def auto():
+
+		s = 1
+		print Fore.RED + Style.BRIGHT + 'RoDI/autonomo>', Fore.BLUE + Style.BRIGHT + "RoDI es libre"
 		while True:
 			dis = robot.see()
 			if dis > 10:
 				robot.move_forward()
 				dis = robot.see()
-			if dis < 10:
+			elif dis < 10:
 				robot.move_stop()
 				robot.move_backward()
 				sleep(1)
 				robot.move_left()
-				sleep(1)
+				sleep(0.5)
 				dis = robot.see()
-			s = raw_input(Fore.RED + Style.BRIGHT + 'RoDI/autonomo>'+ Fore.BLUE + Style.BRIGHT + "Presiona cualquier tecla para detenerme: ")
-			if s != '':
+				s+=1
+			elif s >= 20:
 				print Fore.RED + Style.BRIGHT + 'RoDI/autonomo>', Fore.BLUE + Style.BRIGHT + "RoDI esta quieto"
 				robot.move_stop()
 				break		
 			
 
 	def luz():
+
 		l = robot.light()
-		print Fore.RED + Style.BRIGHT + "RoDI/luz>", Fore.BLUE + Style.BRIGHT + "Siento %d" %dis 
+		print Fore.RED + Style.BRIGHT + "RoDI/luz>", Fore.BLUE + Style.BRIGHT + "Percibo %d intensidad de luz" %l 
 	
 	def soni():
+
 		print Fore.RED + Style.BRIGHT + "RoDI/sonido>", Fore.BLUE + Style.BRIGHT + "Reproducir sonido"
-		robot.sing(33, 1000)
+		robot.sing(1000, 1000)
 		sleep(3)
 		print Fore.RED + Style.BRIGHT + "RoDI/sonido>", Fore.BLUE + Style.BRIGHT + "Fin del sonido"
 
 	def musica():
+		#hay que probar
 		print Fore.RED + Style.BRIGHT + "RoDI/musica>", Fore.BLUE + Style.BRIGHT + "Reproducir musica"
-		robot.sing(1000, 1000)
+		robot.sing(988, 500)
+		robot.sing(1319, 1000)
+		robot.sing(1568, 250)
+		robot.sing(1480, 250)
+		robot.sing(1319, 1000)
+		robot.sing(1976, 500)
+		robot.sing(1760, 1250)
+		robot.sing(1480, 1000)
+		robot.sing(988, 500)
+		robot.sing(1319, 1000)
+		robot.sing(1568, 250)
+		robot.sing(1480, 250)
+		robot.sing(1175, 1000)
+		robot.sing(1319, 500)
+		robot.sing(988, 1000)
 		sleep(1)
-		print Fore.GREEN + Style.BRIGHT + "En trabajo para mejorar el sonido"
-		print Fore.RED + Style.BRIGHT + "RoDI/musica>", Fore.BLUE + Style.BRIGHT + "Fin de la muscia"
+		robot.sing(988, 500)
+		robot.sing(1319, 1000)
+		robot.sing(1568, 250)
+		robot.sing(1480, 250)
+		robot.sing(1319, 1000)
+		robot.sing(1976, 500)
+		robot.sing(2349, 1000)
+		robot.sing(2217, 500)
+		robot.sing(2093, 1000)
+		robot.sing(1760, 500)
+		robot.sing(2093, 1000)
+		robot.sing(1976, 250)
+		robot.sing(1866, 250)
+		robot.sing(1568, 500)
+		robot.sing(1319, 1000)
+		sleep(2)
+		print Fore.RED + Style.BRIGHT + "RoDI/musica>" + Fore.BLUE + Style.BRIGHT + "Fin de la muscia"
 
 	def prender():
+
 		print Fore.RED + Style.BRIGHT + "RoDI/encender>", Fore.BLUE + Style.BRIGHT + "Led encendido"
 		robot.led(1)
 
 	def apagar():
+
 		print Fore.RED + Style.BRIGHT + "RoDI/encender>", Fore.BLUE + Style.BRIGHT + "Led apagado"
 		robot.led(0)
 
+	def aleatorio():
+
+		print Fore.RED + Style.BRIGHT + "RoDI/aleatorio>", Fore.BLUE + Style.BRIGHT + "El Led se volvio loco..."
+		for i in range (256):
+			rojo, verde, azul = wheel(i)
+			robot.pixel(rojo, verde, azul)
+			sleep(0.005)
+		robot.pixel(0,0,0)
+		print Fore.RED + Style.BRIGHT + "RoDI/aleatorio>", Fore.BLUE + Style.BRIGHT + "El Led ya se calmo"
+
+	def titilar():
+		print Fore.RED + Style.BRIGHT + "RoDI/parpadear>", Fore.BLUE + Style.BRIGHT + "El Led esta parpadeando"
+		for i in range(10):
+			robot.light(1)
+			sleep(0.5)
+			robot.light(0)
+			sleep(0.5)
+		print Fore.RED + Style.BRIGHT + "RoDI/parpadear>", Fore.BLUE + Style.BRIGHT + "El Led dejo de parpadear"
+
 	while True:
+
 		accion = raw_input(Fore.RED + Style.BRIGHT+"RoDI>")
 		accion = accion.lower()
 		if accion in ('clear', 'limpiar', 'borrar', 'cls', '0'):
@@ -182,6 +260,10 @@ Salir - salir
 			prender()
 		elif accion in ('11', 'apagar', 'once'):
 			apagar()
+		elif accion in ('12', 'aleatorio', 'doce'):
+			aleatorio()
+		elif accion in ('13', 'parpadear', 'trece'):
+			titilar()
 		elif accion == 'salir':
 			break
 			exit
