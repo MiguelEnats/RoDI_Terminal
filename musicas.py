@@ -2,11 +2,17 @@ import rodi
 
 from time import sleep
 
+from colorama import init, Fore, Style
+
+init(autoreset=True)
+
 robot = rodi.RoDI()
 
 class music(object):
 
 	def harry(self):
+		
+		print Fore.RED + Style.BRIGHT + "RoDI/musica>" + Fore.BLUE + Style.BRIGHT + "Reproduciendo Harry Potter"
 		robot.sing(988, 500)
 		sleep(0.5)
 		robot.sing(1319, 1000)
@@ -67,7 +73,11 @@ class music(object):
 		sleep(0.5)
 		robot.sing(1319, 1000)
 		sleep(2)
+		print Fore.RED + Style.BRIGHT + "RoDI/musica>" + Fore.BLUE + Style.BRIGHT + "Fin de Harry Potter"
+	
 	def Star_Wars(self):
+	
+		print Fore.RED + Style.BRIGHT + "RoDI/musica>" + Fore.BLUE + Style.BRIGHT + "Reproduciendo Star Wars"
 		robot.sing(440, 500)
 		sleep(0.5)
 		robot.sing(440, 500)
@@ -209,3 +219,10 @@ class music(object):
 		robot.sing(440, 650)
 		sleep(0.650)
 		sleep(0.650)
+		print Fore.RED + Style.BRIGHT + "RoDI/musica>" + Fore.BLUE + Style.BRIGHT + "Fin de Star Wars"
+
+	'''def mario():
+		En trabajo
+		print Fore.RED + Style.BRIGHT + "RoDI/musica>" + Fore.BLUE + Style.BRIGHT + "Reproduciendo Mario Bros"
+		print Fore.RED + Style.BRIGHT + "RoDI/musica>" + Fore.BLUE + Style.BRIGHT + "Fin de Mario Bros"
+		'''

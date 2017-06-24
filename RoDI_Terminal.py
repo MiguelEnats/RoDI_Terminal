@@ -1,20 +1,14 @@
-import os
-
-import rodi
-
-import musicas
-
-import creacion
-
-robot = rodi.RoDI()
-
-musica = musicas.music()
-
-#dj = creacion.DJ() en proceso
+import os, rodi, musicas, mods
 
 from time import sleep
 
 from colorama import init, Fore, Style
+
+mod = mods.modos()
+
+robot = rodi.RoDI()
+
+musica = musicas.music()
 
 init(autoreset=True)
 
@@ -177,29 +171,27 @@ def biblioteca():
 	print'''Aqui puedes elegir la cancion que desea escuchar:
 1-Harry Potter (harry)
 2-Star Wars (star)
-3-Escribe tu propia cancion (en proceso)
 -----Estamos agregando mas canciones para que disfrutes mas de tu RoDI
+Cuando este reproduciendo la cancion puedes presionar Control + C para detener la cancion
 '''		
 	while True:
 		opcion = raw_input(Fore.RED + Style.BRIGHT + "RoDI/musica>")
 		if opcion in ('1', 'harry', 'uno'):
-			print Fore.RED + Style.BRIGHT + "RoDI/musica>" + Fore.BLUE + Style.BRIGHT + "Reproduciendo Harry Potter"
-			musica.harry()
-			print Fore.RED + Style.BRIGHT + "RoDI/musica>" + Fore.BLUE + Style.BRIGHT + "Fin de Harry Potter"
+			try:
+				musica.harry()
+			except KeyboardInterrupt:
+				print Fore.BLUE + Style.BRIGHT + "\nHarry Potter ha sido detenido"
 		elif opcion in ('2', 'star', 'dos'):
-			print Fore.RED + Style.BRIGHT + "RoDI/musica>" + Fore.BLUE + Style.BRIGHT + "Reproduciendo Star Wars"
-			musica.Star_Wars()
-			print Fore.RED + Style.BRIGHT + "RoDI/musica>" + Fore.BLUE + Style.BRIGHT + "Fin de Star Wars"
-		#elif opcion in ('3', 'hazlo', 'tres'): esto esta en proceso
-			#dj.inicio()
-		elif opcion in ('1', '2', '3', 'harry', 'star', 'hazlo', 'uno', 'dos', 'tres'):
-			print Fore.GREEN + Style.BRIGHT + "Error: Solo introduce las opciones permitidas. Intentalo de nuevo"
+			try:
+				musica.Star_Wars()
+			except KeyboardInterrupt:
+				print Fore.BLUE + Style.BRIGHT + "\nStar Wars ha sido detenido"
 		elif opcion == '0':
 			os.system('clear')
 			comienzo()
 			break
 		else:
-			print Fore.BLUE + Style.BRIGHT + "Presiona el numero de la opcion, o la palabra entre parentesis, y 0 (cero) para regresar atras"
+			print Fore.BLUE + Style.BRIGHT + "Presiona el numero de la opcion, o la palabra entre parentesis, y 0 (cero) para regresar atras\n"
 
 def prender():
 
@@ -280,6 +272,41 @@ def facil():
 			comienzo()
 			break
 
+def modos():
+
+	os.system('clear')
+	print Fore.GREEN + Style.BRIGHT + "Modos"
+	print '''Estos son los modos de RoDI:
+1-Seguidor de linea (sdl)
+2-Sumobot (sumo)
+3-Callejero (calle)
+Si desea detener a RoDI mientras realiza una de estas acciones presiona Control + C
+'''
+	while True:
+		accion = raw_input(Fore.RED + Style.BRIGHT + "RoDI/modos>")
+		accion = accion.lower()
+		if accion in ('1', 'sdl', 'uno'):
+			try:
+				mod.seguidor()
+			except KeyboardInterrupt:
+				print Fore.BLUE + Style.BRIGHT + "\nRoDI se detuvo"
+		elif accion in ('2', 'sumo', 'dos'):
+			try:
+				mod.sumo()
+			except KeyboardInterrupt:
+				print Fore.BLUE + Style.BRIGHT + "\nRoDI se detuvo"
+		elif accion in ('3', 'triangulo', 'tres'):
+			try:
+				mod.callejera()
+			except KeyboardInterrupt:
+				print Fore.BLUE + Style.BRIGHT + "\nRoDI se detuvo"
+		elif accion == '0':
+			os.system('clear')
+			comienzo()
+			break
+		else:
+			print Fore.BLUE + Style.BRIGHT + "Presiona el numero de la opcion, o la palabra entre parentesis, y 0 (cero) para regresar atras\n"
+
 while True:
 
 	accion = raw_input(Fore.RED + Style.BRIGHT+"RoDI>")
@@ -290,13 +317,45 @@ while True:
 	elif accion in('ayuda', 'help', 'no se', 'nose'):
 		ayuda()
 	elif accion in ('1', 'adelante', 'uno'):
-		adelante()
+		while True:
+			try:
+				adelante()
+			except NameError:
+				print Fore.GREEN + Style.BRIGHT +"Favor, introducir solo numeros"
+			except SyntaxError:
+				print Fore.GREEN + Style.BRIGHT +"Favor, introducir solo numeros"
+			else:
+				break
 	elif accion in ('2', 'atras', 'dos'):
-		atras()
+		while True:
+			try:
+				atras()
+			except NameError:
+				print Fore.GREEN + Style.BRIGHT +"Favor, introducir solo numeros"
+			except SyntaxError:
+				print Fore.GREEN + Style.BRIGHT +"Favor, introducir solo numeros"
+			else:
+				break
 	elif accion in ('3', 'izquierda', 'tres'):
-		izquierda()
+		while True:
+			try:
+				izquierda()
+			except NameError:
+				print Fore.GREEN + Style.BRIGHT +"Favor, introducir solo numeros"
+			except SyntaxError:
+				print Fore.GREEN + Style.BRIGHT +"Favor, introducir solo numeros"
+			else:
+				break
 	elif accion in ('4', 'derecha', 'cuatro'):
-		derecha()
+		while True:
+			try:
+				derecha()
+			except NameError:
+				print Fore.GREEN + Style.BRIGHT +"Favor, introducir solo numeros"
+			except SyntaxError:
+				print Fore.GREEN + Style.BRIGHT +"Favor, introducir solo numeros"
+			else:
+				break
 	elif accion in ('5', 'cinco', 'distancia'):
 		mirar()
 	elif accion in ('6', 'auto', 'seis'):
@@ -317,8 +376,9 @@ while True:
 		titilar()
 	elif accion in ('truco', 'secreto', 'oculto'):
 		facil()
-	elif accion in ('guerrero', 'modo_sumo', 'espartanos', 'auauau'):
-		sumo()
+	elif accion == 'modo':
+		modos()
 	elif accion == 'salir':
+		os.system('clear')
 		break
 		exit
