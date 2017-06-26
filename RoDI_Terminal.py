@@ -12,7 +12,6 @@ musica = musicas.music()
 
 init(autoreset=True)
 
-
 os.system('clear')
 
 def wheel(wheel_pos):
@@ -56,8 +55,8 @@ comienzo()
 def ayuda():
 
 	print '''Ayuda:
-------Para las primeras 4 acciones, indicar el tiempo en segundos a realizar la accion. Presionar 0 (cero) para elegir otra accion		
-------Para la opcion (5, 6, 7, 8, 10, 11 y 12, 13) NO es necesario indicar un tiempo, solo basta con teclear la opcion.
+------Para las opciones (1, 2, 3, 4, 6) NO es necesario hacer nada, solo indicar la opcion y detenerlo con Control + C
+------Para las opciones (5, 7, 8, 10, 11 y 12, 13) solo basta con teclear la opcion.
 ------Accion (8). Por defecto reproducira solo un pitido.
 ------Accion (10). Mantendra encendido el Led si no se le indica que se apague
 ------Accion (12). Se refiere a que el Led podra encenderse de cualquier color de forma aleatoria.
@@ -65,62 +64,33 @@ def ayuda():
 
 def adelante():
 
+	print Fore.RED + Style.BRIGHT + 'RoDI/adelante>'
 	while True:
-		tiempo = input(Fore.RED + Style.BRIGHT + 'RoDI/adelante>')
-		if tiempo < 0:
-			print Fore.GREEN + Style.BRIGHT + "Error: No se permite numeros negativos. Intentalo de nuevo."
-		elif tiempo > 0:
-			print Fore.BLUE + Style.BRIGHT + "RoDI avanzara por %s segundos" %tiempo
+		dis = robot.see()
+		if dis > 10:
 			robot.move_forward()
-			sleep(tiempo)
-			robot.move_stop()
-			print Fore.BLUE + Style.BRIGHT + "RoDI se detuvo"
+			dis = robot.see()
 		else:
+			robot.move_stop()
+			print Fore.GREEN + Style.BRIGHT + "RoDI encontro un obstaculo, y por eso se detuvo"
 			break
-
 def atras():
 
+	print Fore.RED + Style.BRIGHT + 'RoDI/atras>'
 	while True:
-		tiempo = input(Fore.RED + Style.BRIGHT + 'RoDI/atras>')
-		if tiempo < 0:
-			print Fore.GREEN + Style.BRIGHT + "Error: No se permite numeros negativos. Intentalo de nuevo."
-		elif tiempo > 0:
-			print Fore.BLUE + Style.BRIGHT + "RoDI retrocedera por %s segundos" %tiempo
-			robot.move_backward()
-			sleep(tiempo)
-			robot.move_stop()
-			print Fore.BLUE + Style.BRIGHT + "RoDI se detuvo"
-		else:
-			break
+		robot.move_backward()
+
 def izquierda():
 		
+	print Fore.RED + Style.BRIGHT + 'RoDI/izquierda>'
 	while True:
-		tiempo = input(Fore.RED + Style.BRIGHT + 'RoDI/izquierda>')
-		if tiempo < 0:
-			print Fore.GREEN + Style.BRIGHT + "Error: No se permite numeros negativos. Intentalo de nuevo."
-		elif tiempo > 0:
-			print Fore.BLUE + Style.BRIGHT + "RoDI girara a la izquierda por %s segundos" %tiempo
-			robot.move_left()
-			sleep(tiempo)
-			robot.move_stop()
-			print Fore.BLUE + Style.BRIGHT + "RoDI se detuvo"
-		else:
-			break
+		robot.move_left()
 
 def derecha():
 
+	Fore.RED + Style.BRIGHT + 'RoDI/derecha>'
 	while True:
-		tiempo = input(Fore.RED + Style.BRIGHT + 'RoDI/derecha>')
-		if tiempo < 0:
-			print Fore.GREEN + Style.BRIGHT + "Error: No se permite numeros negativos. Intentalo de nuevo."
-		elif tiempo > 0:
-			print Fore.BLUE + Style.BRIGHT + "RoDI girara a la derecha por %s segundos" %tiempo
-			robot.move_right()
-			sleep(tiempo)
-			robot.move_stop()
-			print Fore.BLUE + Style.BRIGHT + "RoDI se detuvo"
-		else:
-			break
+		robot.move_right()
 
 def mirar():
 
@@ -129,7 +99,6 @@ def mirar():
 
 def auto():
 
-	s = 1
 	print Fore.RED + Style.BRIGHT + 'RoDI/autonomo>', Fore.BLUE + Style.BRIGHT + "RoDI es libre"
 	while True:
 		dis = robot.see()
@@ -140,16 +109,9 @@ def auto():
 			robot.move_left()
 			sleep(0.5)
 			dis = robot.see()
-			s+=1
-		elif s >= 6:
-			print Fore.RED + Style.BRIGHT + 'RoDI/autonomo>', Fore.BLUE + Style.BRIGHT + "RoDI esta quieto"
-			robot.move_stop()
-			break
 		elif dis > 10:
 			robot.move_forward()
 			dis = robot.see()
-				
-			
 
 def luz():
 
@@ -191,7 +153,7 @@ Cuando este reproduciendo la cancion puedes presionar Control + C para detener l
 			comienzo()
 			break
 		else:
-			print Fore.BLUE + Style.BRIGHT + "Presiona el numero de la opcion, o la palabra entre parentesis, y 0 (cero) para regresar atras\n"
+			print Fore.GREEN + Style.BRIGHT + "Presiona el numero de la opcion, o la palabra entre parentesis, y 0 (cero) para regresar atras\n"
 
 def prender():
 
@@ -239,11 +201,11 @@ def facil():
 		accion = accion.lower()
 		if accion in ('1', 'cuadrado', 'uno'):
 			print Fore.RED + Style.BRIGHT + "RoDI/figuras>" + Fore.BLUE + Style.BRIGHT + "RoDI esta haciendo un cuadrado" 
-			for i in range(3):
+			for i in range(4):
 				robot.move_forward()
 				sleep(2)
 				robot.move_right()
-				sleep(0.25)
+				sleep(0.5)
 			robot.move_stop()
 			print Fore.RED + Style.BRIGHT + "RoDI/figuras>" + Fore.BLUE + Style.BRIGHT + "RoDI hizo un cuadrado"
 		elif accion in ('2', 'circulo', 'dos'):
@@ -257,14 +219,11 @@ def facil():
 			print Fore.RED + Style.BRIGHT + "RoDI/figuras>" + Fore.BLUE + Style.BRIGHT + "RoDI hizo un circulo"
 		elif accion in ('3', 'triangulo', 'tres'):
 			print Fore.RED + Style.BRIGHT + "RoDI/figuras>" + Fore.BLUE + Style.BRIGHT + "RoDI esta haciendo un triangulo"
-			for i in range(2):
+			for i in range(3):
+				robot.move_forward()
+				sleep(2)
 				robot.move_right()
-				sleep(0.25)
-				for i in range(2):
-					robot.move_forward()
-					sleep(2)
-					robot.move_right()
-					sleep(0.5)	
+				sleep(0.75)	
 			robot.move_stop()
 			print Fore.RED + Style.BRIGHT + "RoDI/figuras>" + Fore.BLUE + Style.BRIGHT + "RoDI hizo un triangulo"
 		elif not accion in ('1', '2', '3', 'cuadrado', 'circulo', 'triangulo', 'uno', 'dos', 'tres'):
@@ -290,16 +249,19 @@ Si desea detener a RoDI mientras realiza una de estas acciones presiona Control 
 				mod.seguidor()
 			except KeyboardInterrupt:
 				print Fore.BLUE + Style.BRIGHT + "\nRoDI se detuvo"
+			robot.move_stop()
 		elif accion in ('2', 'sumo', 'dos'):
 			try:
 				mod.sumo()
 			except KeyboardInterrupt:
 				print Fore.BLUE + Style.BRIGHT + "\nRoDI se detuvo"
+			robot.move_stop()
 		elif accion in ('3', 'triangulo', 'tres'):
 			try:
 				mod.callejera()
 			except KeyboardInterrupt:
 				print Fore.BLUE + Style.BRIGHT + "\nRoDI se detuvo"
+			robot.move_stop()
 		elif accion == '0':
 			os.system('clear')
 			comienzo()
@@ -317,49 +279,37 @@ while True:
 	elif accion in('ayuda', 'help', 'no se', 'nose'):
 		ayuda()
 	elif accion in ('1', 'adelante', 'uno'):
-		while True:
-			try:
-				adelante()
-			except NameError:
-				print Fore.GREEN + Style.BRIGHT +"Favor, introducir solo numeros"
-			except SyntaxError:
-				print Fore.GREEN + Style.BRIGHT +"Favor, introducir solo numeros"
-			else:
-				break
+		try:
+			adelante()
+		except KeyboardInterrupt:
+			print Fore.RED + Style.BRIGHT + 'RoDI/adelante>', Fore.BLUE + Style.BRIGHT + "RoDI se detuvo"
+		robot.move_stop()
 	elif accion in ('2', 'atras', 'dos'):
-		while True:
-			try:
-				atras()
-			except NameError:
-				print Fore.GREEN + Style.BRIGHT +"Favor, introducir solo numeros"
-			except SyntaxError:
-				print Fore.GREEN + Style.BRIGHT +"Favor, introducir solo numeros"
-			else:
-				break
+		try:
+			atras()
+		except KeyboardInterrupt:
+			print Fore.RED + Style.BRIGHT + 'RoDI/atras>', Fore.BLUE + Style.BRIGHT + "RoDI se detuvo"
+		robot.move_stop()
 	elif accion in ('3', 'izquierda', 'tres'):
-		while True:
-			try:
-				izquierda()
-			except NameError:
-				print Fore.GREEN + Style.BRIGHT +"Favor, introducir solo numeros"
-			except SyntaxError:
-				print Fore.GREEN + Style.BRIGHT +"Favor, introducir solo numeros"
-			else:
-				break
+		try:
+			izquierda()
+		except KeyboardInterrupt:
+			print Fore.RED + Style.BRIGHT + 'RoDI/izquierda>', Fore.BLUE + Style.BRIGHT + "RoDI se detuvo"
+		robot.move_stop()
 	elif accion in ('4', 'derecha', 'cuatro'):
-		while True:
-			try:
-				derecha()
-			except NameError:
-				print Fore.GREEN + Style.BRIGHT +"Favor, introducir solo numeros"
-			except SyntaxError:
-				print Fore.GREEN + Style.BRIGHT +"Favor, introducir solo numeros"
-			else:
-				break
+		try:
+			derecha()
+		except KeyboardInterrupt:
+			print Fore.RED + Style.BRIGHT + 'RoDI/derecha>', Fore.BLUE + Style.BRIGHT + "RoDI se detuvo"
+		robot.move_stop()
 	elif accion in ('5', 'cinco', 'distancia'):
 		mirar()
 	elif accion in ('6', 'auto', 'seis'):
-		auto()
+		try:
+			auto()
+		except KeyboardInterrupt:
+			print Fore.RED + Style.BRIGHT + 'RoDI/autonomo>', Fore.BLUE + Style.BRIGHT + "RoDI se detuvo"
+		robot.move_stop()
 	elif accion in ('7', 'luz', 'siete'):
 		luz()
 	elif accion in ('8', 'sonido', 'ocho'):

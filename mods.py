@@ -20,60 +20,62 @@ class modos(object):
 
 
 	def seguidor(self):
-		
-		estado1, estado2, enemy = sensores()
 		print Fore.BLUE + Style.BRIGHT + "RoDI seguira la linea negra hasta que le digas que se detenga"
-		if estado1 > 100 and estado2 > 100:
-			robot.move_backward()
+		while True:	
 			estado1, estado2, enemy = sensores()
-		elif estado1 < 100 and estado2 > 100:
-			robot.move_right()
-			estado1, estado2, enemy = sensores()
-		elif estado1 > 100 and estado2 < 100:
-			robot.move_left()
-			estado1, estado2, enemy = sensores()
-		elif estado1 < 100 and estado2 > 100:
-			robot.move_forward()
-			estado1, estado2, enemy = sensores()
+			if estado1 > 511 and estado2 > 511:
+				robot.move_backward()
+				estado1, estado2, enemy = sensores()
+			elif estado1 < 511 and estado2 > 511:
+				robot.move_right()
+				estado1, estado2, enemy = sensores()
+			elif estado1 > 511 and estado2 < 511:
+				robot.move_left()
+				estado1, estado2, enemy = sensores()
+			elif estado1 < 511 and estado2 > 511:
+				robot.move_forward()
+				estado1, estado2, enemy = sensores()
 
 	def sumo(self):
 		
 		estado1, estado2, enemy = sensores()
 		print Fore.BLUE + Style.BRIGHT + "RoDI luchara hasta que le digas que se detenga"
-		if estado1 < 100 and estado2 < 100:
-			if enemy == 1:
-				robot.move_backward()
-				sleep(0.5)
-				robot.move_forward()
+		while True:
+			if estado1 < 100 and estado2 < 100:
+				if enemy == 1:
+					robot.move_backward()
+					sleep(0.5)
+					robot.move_forward()
+					estado1, estado2, enemy = sensores()
+				elif enemy < 20:
+					robot.move_forward()
+					estado1, estado2, enemy = sensores()
+				else:
+					robot.move_right()
+					estado1, estado2, enemy = sensores()
+			elif estado1 > 100 and estado2 < 100:
+				robot.move_right()
 				estado1, estado2, enemy = sensores()
-			elif enemy < 20:
-				robot.move_forward()
+			elif estado1 < 100 and estado2 > 100:
+				robot.move_left()
 				estado1, estado2, enemy = sensores()
 			else:
 				robot.move_right()
 				estado1, estado2, enemy = sensores()
-		elif estado1 > 100 and estado2 < 100:
-			robot.move_right()
-			estado1, estado2, enemy = sensores()
-		elif estado1 < 100 and estado2 > 100:
-			robot.move_left()
-			estado1, estado2, enemy = sensores()
-		else:
-			robot.move_right()
-			estado1, estado2, enemy = sensores()
 			
 	def callejera(self):
 
 		estado1, estado2, enemy = sensores()
 		print Fore.BLUE + Style.BRIGHT + "RoDI luchara hasta que le digas que se detenga"
-		if enemy < 20:
-			robot.move_forward()
-			estado1, estado2, enemy = sensores()
-		elif enemy == 1:
-			robot.move_backward()
-			sleep(0.5)
-			robot.move_forward()
-			estado1, estado2, enemy = sensores()
-		else:
-			robot.move_right()
-			estado1, estado2, enemy = sensores()
+		while True:
+			if enemy < 20:
+				robot.move_forward()
+				estado1, estado2, enemy = sensores()
+			elif enemy == 1:
+				robot.move_backward()
+				sleep(0.5)
+				robot.move_forward()
+				estado1, estado2, enemy = sensores()
+			else:
+				robot.move_right()
+				estado1, estado2, enemy = sensores()
